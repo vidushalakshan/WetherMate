@@ -59,7 +59,6 @@ class WeatherService {
 
       if (response.statusCode == 200) {
         final List data = response.data['list'];
-        // Get one forecast per day (every 8th item = 24 hours / 3 hours)
         List<Forecast> forecasts = [];
         for (int i = 0; i < data.length && forecasts.length < 7; i += 8) {
           forecasts.add(Forecast.fromJson(data[i]));
@@ -69,10 +68,10 @@ class WeatherService {
         throw Exception('Failed to load forecast');
       }
     } on DioException catch (e) {
-      print('Forecast Error: ${e.message}'); // Debug
+      print('Forecast Error: ${e.message}');
       throw Exception('Failed to load forecast: ${e.message}');
     } catch (e) {
-      print('Error: $e'); // Debug
+      print('Error: $e');
       throw Exception('Unexpected error: $e');
     }
   }
